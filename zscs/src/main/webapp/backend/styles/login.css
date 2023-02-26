@@ -1,0 +1,134 @@
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: url(../images/login.png) no-repeat 0px 0px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.login-box {
+  width: 37%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 475px;
+  background-color: rgba(75, 81, 95, 0.3);
+  box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+  border-radius: 5px;
+}
+
+.login-form {
+  width: 80%;
+  height:100%;
+  border-radius: 0px 8px 8px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-form-title {
+  height: 36px;
+  color: aliceblue;
+  display: flex;
+  font-size: 3em;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+  margin-top: 30px;
+}
+
+.login-form .el-form {
+  width: 90%;
+  height: 90%;
+}
+.login-form .el-form-item {
+  width: 70%;
+  height: 13%;
+  margin-bottom: 30px;
+  margin-left: 15%;
+}
+
+.login-form .el-form-item:last-child {
+  margin-top: 10%;
+  margin-left:25%;
+}
+
+.el-form-item__content{
+  height: 100%;
+}
+
+.login-form .el-form-item.is-error .el-input__inner {
+  border: 0 !important;
+  border-bottom: 1px solid #fd7065 !important;
+  background: #fff !important;
+}
+.login-form .input-icon {
+  height: 32px ;
+  width: 18px;
+  margin-left: 12px;
+}
+.login-form .el-input__inner {
+  border: 0;
+  border-bottom: 1px solid #e9e9e8;
+  border-radius: 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: #333333;
+  height: 32px;
+  line-height: 32px;
+}
+.el-input__prefix {
+  left: 8px;
+}
+
+.login-form .el-input--prefix .el-input__inner {
+  height: 100%;
+  padding-left: 26px;
+}
+
+.el-input.el-input--prefix {
+  height: 100%;
+  background-color: #FFFFFF;
+  padding-left: 26px;
+}
+.login-form .el-input__inner::placeholder {
+  color: #aeb5c4;
+}
+.login-form .el-form-item--medium .el-form-item__content {
+  line-height: 32px;
+}
+.login-form .el-input--medium .el-input__icon {
+  line-height: 32px;
+}
+
+.login-btn {
+  color: #fff0cc;
+  border-radius: 25px;
+  padding: 11px 20px !important;
+  font-weight: 500;
+  font-size: 19px;
+  border: 0;
+  background-color: rgba(66, 100, 255, 1);
+  height: 100%;
+}
+
+。loginMsg{
+  text-align: center;
+  color: aliceblue;
+}
+.login-form-title .title-label {
+  font-weight: 500;
+  font-size: 20px;
+  color: #333333;
+  margin-left: 10px;
+}

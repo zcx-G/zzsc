@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zscs:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>zscs</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="chapter1-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="zscs:war exploded" />
+    </root>
+  </artifact>
+</component>

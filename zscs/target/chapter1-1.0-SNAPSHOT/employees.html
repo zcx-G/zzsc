@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<div id="app">
+    <el-header style=" font-size: 12px" height="50px">
+
+    </el-header>
+
+    <el-container style="height: 880px; border: 1px solid #eee">
+
+        <el-aside width="200px">
+            <el-menu
+                    default-active="2"
+                    @open="handleOpen"
+                    @close="handleClose"
+                    background-color="#bbbbbb"
+                    text-color="#000000"
+                    active-text-color="#000000">
+
+                <el-menu-item index="2" @clike="clikeselect">
+                    <i class="el-icon-user"></i>
+                    <span slot="title" >所有员工</span>
+                </el-menu-item>
+                <el-submenu index="1" height="20px">
+                    <template slot="title">
+                        <i class="el-icon-menu"></i>
+                        <span>部门</span>
+                    </template>
+                    <el-table :data="departmentTable" :show-header="false" >
+                        <el-table-column
+                                prop="departmentName"
+                                label="员工号"
+                                align="center">
+                        </el-table-column>
+                    </el-table>
+                </el-submenu>
+            </el-menu>
+        </el-aside>
+
+        <el-container>
+            <el-header style=" font-size: 12px" height="80px">
+                <el-form :inline="true" :model="formInline"  label-width="auto"
+                         style='position: absolute;top:75px;'>
+                    <el-form-item >
+                        <el-input v-model="formInline.user" placeholder="请输入部门名称"></el-input>
+                    </el-form-item>
+                    <el-form-item >
+                        <el-input v-model="formInline.user" placeholder="请输入员工姓名"></el-input>
+                    </el-form-item>
+                    <el-form-item >
+                        <el-select v-model="formInline.region" placeholder="性别" >
+                            <el-option label="男" value="shanghai"></el-option>
+                            <el-option label="女" value="beijing"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">查询</el-button>
+                    </el-form-item>
+                </el-form>
+                <el-button
+                        type="primary"
+                        style='position: absolute;right:120px;top:75px;'
+                        @click="addMemberHandle('add')"
+                >
+                    添加员工
+                </el-button>
+                <el-button
+                        type="primary"
+                        style='position: absolute;right:20px;top:75px;'
+                        @click="addMemberHandle('add')"
+                >
+                    批量删除
+                </el-button>
+
+            </el-header>
+
+            <el-main>
+                <el-table :data="EmployeesTable">
+                    <el-table-column prop="employeesId" label="员工号"align="center">
+                    </el-table-column>
+                    <el-table-column prop="employeesName" label="员工姓名"align="center">
+                    </el-table-column>
+                    <el-table-column prop="sex" label="性别"align="center">
+                    </el-table-column>
+                    <el-table-column prop="age" label="年龄"align="center">
+                    </el-table-column>
+                    <el-table-column prop="tel" label="电话"align="center">
+                    </el-table-column>
+                    <el-table-column prop="departmentName" label="部门名称"align="center">
+                    </el-table-column>
+                    <el-table-column prop="office" label="职务"align="center">
+                    </el-table-column>
+                </el-table>
+            </el-main>
+        </el-container>
+    </el-container>
+
+</div>
+
+</body>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+
+<!-- 引入样式 -->
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="element-ui/lib/index.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                EmployeesTable: [{
+                    age: '',
+                    departmentName: '',
+                    employeesId: '',
+                    employeesName: '',
+                    office: '',
+                    sex: '',
+                    tel: ""
+                }],
+                departmentTable:[{
+                    departmentId:'',
+                    departmentName:'',
+                    managerId:''
+                }],
+                //搜索表单
+                formInline: {
+                    user: '',
+                    region: ''
+                }
+
+            }
+        },
+        mounted() {
+            this.selectAll();
+            this.selectDepartment();
+        },
+        methods: {
+            clikeselect(){
+                this.selectAll();
+            },
+            //查询所有员工
+            selectAll() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:80/employees/selectAll"
+                }).then(resp => {
+                    this.EmployeesTable = resp.data;
+                })
+            },
+            //查询所有部门
+            selectDepartment() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:80/employees/selectDepartment"
+                }).then(resp => {
+                    this.departmentTable = resp.data;
+                })
+            },
+            onSubmit() {
+                console.log('submit!');
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    })
+</script>
+<style>
+    .el-header {
+        background-color: #B3C0D1;
+        color: #333;
+        line-height: 60px;
+    }
+
+    .el-aside {
+        background-color: #B3C0D1;
+        color: #333;
+    }
+
+
+
+</style>
+<style>
+    .el-row {
+        margin-bottom: 20px;
+        height: 80px;
+    }
+    .el-col {
+        border-radius: 4px;
+        height: 80px;
+    }
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .bg-purple {
+        background: #d3dce6;
+    }
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 80px;
+    }
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
+    }
+
+</style>
+</html>
