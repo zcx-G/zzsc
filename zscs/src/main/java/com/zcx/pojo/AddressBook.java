@@ -39,7 +39,5 @@ public class AddressBook implements Serializable {
    // 修改时间
     private String updateTime;
 
-    //修改人
-    private Long updateUser;
 
 }

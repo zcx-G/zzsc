@@ -11,31 +11,44 @@ public interface GoodMapper {
     @Select("select * from good")
     @ResultMap("goodResultMap")
     List<Good> list();
+    //查询所有商品
 
     @Select("select * from good where category_name = #{categoryName}")
     @ResultMap("goodResultMap")
     List<Good> categoryList(String categoryName);
+    //查询当前分类下的商品
 
     @Select("select * from good where id = #{id}")
     Good selectById(int id);
+    //根据ID查询
 
     List<Good> selectGoodPage(@Param("begin") int begin, @Param("size") int size, @Param("name") String name);
+    //分页条件查询
 
     int selectCount(String name);
+    //商品数量
 
     @Insert("insert into " +
             "good" +
-            "(name,category_name,price,image,description,status,update_time,update_user) " +
+            "(name,category_name,price,sale_num,image,description,status,update_time,update_user) " +
             "values" +
-            "(#{name},#{categoryName},#{price},#{image},#{description},#{status},#{updateTime},#{updateUser})")
+            "(#{name},#{categoryName},#{price},0,#{image},#{description},#{status},#{updateTime},#{updateUser})")
     int add(Good good);
+    //添加商品
 
     @Update("update good " +
             "set name = #{name},category_name =#{categoryName},price=#{price},image=#{image},description=#{description},update_time = #{updateTime},update_user = #{updateUser} " +
             "where id =#{id}")
     int update(Good good);
+    //修改商品
 
     int delete(@Param("ids") int[] ids);
+    //删除商品
 
     int status(@Param("ids") int[] ids ,@Param("status") int status);
+    //修改商品状态
+
+    @Update("update good set sale_num=sale_num+#{num} where id=#{id}")
+    int addSaleNum(@Param("num") int num, @Param("id") int id);
+    //销量增加
 }

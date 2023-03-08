@@ -18,10 +18,19 @@ function orderListApi() {
 //分页查询订单
 function orderPagingApi(data) {
   return $axios({
-      'url': '/order/userPage',
+      'url': '/order/page',
       'method': 'get',
       params:{...data}
   })
+}
+
+
+//查询订单详情
+function orderDetailListApi(id) {
+    return $axios({
+        'url': '/orderDetail/selectById?id='+id,
+        'method': 'get',
+    })
 }
 
 //再来一单

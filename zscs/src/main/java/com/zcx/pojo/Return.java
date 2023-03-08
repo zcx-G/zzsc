@@ -1,9 +1,11 @@
 package com.zcx.pojo;
 
 import lombok.Data;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * 返回前端格式
+ * @param <T>
+ */
 @Data
 public class Return<T> {
 
@@ -27,7 +29,5 @@ public class Return<T> {
         r.code = 0;
         return r;
     }
-
-
 
 }

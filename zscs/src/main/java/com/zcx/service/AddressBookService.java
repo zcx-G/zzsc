@@ -7,15 +7,20 @@ import java.util.List;
 
 public interface AddressBookService {
 
-    int add(AddressBook addressBook);
+    int add(AddressBook addressBook);  //添加地址
 
-    int updateDefault(Long userId);
+    int update(AddressBook addressBook);   //修改地址
 
-    int updateDefaultById(Long id);
+    void updateDefault(Long userId); //根据用户ID将全部地址状态设为非默认
 
-    AddressBook selectById(Long id);
+    int updateDefaultById(Long id);  //将当前ID设为默认地址
 
-    AddressBook selectDefaultAddress(Long userId);
+    AddressBook selectById(Long id);  //根据Id查找地址
 
-    List<AddressBook> selectAddressList(Long userId);
+    AddressBook selectDefaultAddress(Long userId); //查找用户默认地址
+
+    List<AddressBook> selectAddressList(Long userId);  //查询当前用户所有地址
+
+    int delete(Long id);  //根据Id删除地址
+
 }

@@ -24,18 +24,10 @@
   border-radius: 5px;
 }
 
+
 .dashboard-container .container .pageList {
   text-align: center;
   margin-top: 30px;
-}
-
-.dashboard-container .container .tableLab .span-btn {
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  padding: 0 20px;
-  color: #818693;
-  border-right: solid 1px #d8dde3;
 }
 
 .dashboard-container .container .tableLab .el-button {
@@ -188,4 +180,44 @@
 .el-table--border td:first-child .cell,
 .el-table--border th:first-child .cell {
   padding-left: 12px;
+}
+
+
+
+.edit{
+  color: rgb(245,108,108) !important;
+
+}
+
+.search-btn {
+  margin-left: 20px;
+}
+.orderTableBar{
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: flex-start !important;
+}
+.info-box{
+  margin: 0;
+}
+.info-box .item-box{
+  display: flex;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+  text-align: left;
+  margin-bottom: 14px;
+  margin-left: 50px;
+}
+.info-box .item-box:last-child{
+  margin-bottom: 0;
+}
+.info-box .item-box .label{
+  width: 96px;
+}
+.info-box .item-box .des{
+  flex: 1;
+  color: #333333;
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
 
-    @Override
+    @Override  //分页查询
     public Return<PageBean> selectByPage(int currentPage, int pageSize) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
         return Return.success(pageBean);
     }
 
-    @Override
+    @Override  //添加分类
     public int add(Category category) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -51,6 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
         return i;
     }
 
+    @Override  //修改分类
     public int update(Category category) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -64,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
         return i;
     }
 
-    @Override
+    @Override  //删除分类
     public int delete(Long id) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -78,7 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
         return i;
     }
 
-    @Override
+    @Override  //查询所有分类
     public List<Category> list() {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();

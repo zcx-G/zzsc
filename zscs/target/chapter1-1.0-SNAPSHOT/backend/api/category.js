@@ -16,18 +16,17 @@ const queryCategoryById = (id) => {
 }
 
 // 删除当前列的接口
-const deleCategory = (ids) => {
+const deleteCategory = (id) => {
   return $axios({
-    url: '/category',
-    method: 'delete',
-    params: { ids }
+    url: '/category/delete?id='+id,
+    method: 'get'
   })
 }
 
 // 修改接口
 const editCategory = (params) => {
   return $axios({
-    url: '/category/modify',
+    url: '/category/update',
     method: 'post',
     data: { ...params }
   })

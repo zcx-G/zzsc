@@ -4,36 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-    <link rel="shortcut icon" href="favicon.ico">
+    <title>掌上超市</title>
+    <link rel="shortcut icon" href="images/logo.png">
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="plugins/element-ui/index.css" />
-    <link rel="stylesheet" href="styles/common.css" />
+    <link rel="stylesheet" href="../plugins/element-ui/index.css" />
     <link rel="stylesheet" href="styles/index.css" />
-    <link rel="stylesheet" href="styles/icon/iconfont.css" />
-    <style>
-      .body{
-        min-width: 1366px;
-      }
-      .app-main{
-        height: calc(100% - 64px);
-      }
-      .app-main .divTmp{
-        width: 100%;
-        height: 100%;
-      }
-    </style>
   </head>
 
   <body>
     <div class="app" id="app">
       <div class="app-wrapper openSidebar clearfix">
-        <!-- sidebar -->
+        <!--sidebar -->
         <div class="sidebar-container">
-<!--          <div class="logo">-->
-<!--            &lt;!&ndash; <img src="images/logo.png" width="122.5" alt="" /> &ndash;&gt;-->
-<!--            <img src="images/login/login-logo.png" alt="" style="width: 117px; height: 32px" />-->
-<!--          </div>-->
+          <div class="logo">
+            <img src="images/zscs.png" alt="" style="width: 190px; height: 64px" />
+          </div>
 
           <el-scrollbar wrap-class="scrollbar-wrapper">
             <el-menu
@@ -69,19 +54,16 @@
             </el-menu>
           </el-scrollbar>
         </div>
+        <!--main-->
         <div class="main-container">
-          <!-- <navbar /> -->
+          <!-- navbar -->
           <div class="navbar">
-            <div class="head-lable">
-              <span v-if="goBackFlag" class="goBack" @click="goBack()"
-                ><img src="images/icons/btn_back@2x.png" alt="" /> 返回</span
-              >
-              <span>{{headTitle}}</span>
+            <div class="left-menu">
+              <div>{{headTitle}}</div>
             </div>
             <div class="right-menu">
-              <div class="avatar-wrapper">{{ userInfo.name }}</div>
-              <!-- <div class="logout" @click="logout">退出</div> -->
-              <img src="images/icons/btn_close@2x.png" class="outLogin" alt="退出" @click="logout" />
+              <div>{{ userInfo.name }}</div>
+              <i class="el-icon-switch-button logout" @click="logout">退出</i>
             </div>
           </div>
           <div class="app-main" v-loading="loading">
@@ -101,11 +83,12 @@
       </div>
     </div>
     <!-- 开发环境版本，包含了有帮助的命令行警告 -->
-    <script src="plugins/vue/vue.js"></script>
+    <script src="../plugins/vue/vue.js"></script>
     <!-- 引入组件库 -->
-    <script src="plugins/element-ui/index.js"></script>
+    <script src="../plugins/element-ui/index.js"></script>
     <!-- 引入axios -->
-    <script src="plugins/axios/axios.min.js"></script>
+    <script src="../plugins/axios/axios.min.js"></script>
+
     <script src="js/request.js"></script>
     <script src="./api/login.js"></script>
     <script>
@@ -118,38 +101,26 @@
             menuActived: '2',
             userInfo: {},
             menuList: [
-              // {
-              //   id: '1',
-              //   name: '门店管理',
-              //   children: [
                   {
                     id: '2',
                     name: '商品管理',
-                    url: 'page/good/list.html',
+                    url: 'page/good.html',
                     icon: 'icon-food'
                   },
                   {
                     id: '3',
                     name: '分类管理',
-                    url: 'page/category/list.html',
+                    url: 'page/category.html',
                     icon: 'icon-category'
                   },
                   {
                     id: '4',
-                    name: '套餐管理',
-                    url: 'page/combo/list.html',
-                    icon: 'icon-combo'
-                  },
-                  {
-                    id: '5',
                     name: '订单明细',
-                    url: 'page/order/list.html',
+                    url: 'page/order.html',
                     icon: 'icon-order'
                   }
-              //   ],
-              // },
             ],
-            iframeUrl: 'page/good/list.html',
+            iframeUrl: 'page/good.html',
             headTitle: '商品管理',
             goBackFlag: false,
             loading: true,
@@ -173,33 +144,15 @@
         },
         methods: {
           logout() {
-            axios({
-              method: "post",
-              url: "http://localhost/logoutServlet"
-            }).then(resp => {
-              if (String(resp.data.code) === '1') {
+            logoutApi().then((res)=>{
+              if(res.code === 1){
                 localStorage.removeItem('userInfo')
-                // this.$message.success(resp.data.data)
-                window.location.href = '/backend/page/login/login.html'
-
-              } else {
-                this.$message.error(resp.data.msg)
-                this.loading = false
-              }
+                window.location.href = '/backend/page/login.html'
+              }else {
+                    this.$message.error(res.msg)
+                    this.loading = false
+                  }
             })
-            // logoutApi().then((res)=>{
-            //   if(res.code === 1){
-            //     localStorage.removeItem('userInfo')
-            //     window.location.href = '/backend/page/login/login.html'
-            //   }
-            // })
-          },
-          goBack() {
-            // window.location.href = 'javascript:history.go(-1)'
-            const menu = this.menuList.find(item=>item.id===this.menuActived)
-            // this.goBackFlag = false
-            // this.headTitle = menu.name
-            this.menuHandle(menu,false)
           },
           menuHandle(item, goBackFlag) {
             this.loading = true

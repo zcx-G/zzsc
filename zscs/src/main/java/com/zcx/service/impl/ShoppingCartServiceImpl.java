@@ -13,7 +13,7 @@ import java.util.List;
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
 
-    @Override
+    @Override  //清空当前用户购物车
     public int deleteAll(Long userId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -26,8 +26,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return i;
     }
 
-    @Override
-    public int deleteOne(Long goodId, Long userId) {
+    @Override  //删除购物车中一个商品
+    public int deleteOne(Integer goodId, Long userId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取Mapper
@@ -39,7 +39,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return i;
     }
 
-    @Override
+    @Override  //查询当前用户购物车中所有商品
     public List<ShoppingCart> list(Long userId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -51,8 +51,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return list;
     }
 
-    @Override
-    public int addNumber(Long goodId, Long userId) {
+    @Override  //添加购物车中商品数量
+    public int addNumber(Integer goodId, Long userId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取Mapper
@@ -64,8 +64,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return i;
     }
 
-    @Override
-    public int subNumber(Long goodId, Long userId) {
+    @Override  //减少购物车中商品数量
+    public int subNumber(Integer goodId, Long userId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取Mapper
@@ -77,8 +77,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return i;
     }
 
-    @Override
-    public ShoppingCart selectByGoodId(Long goodId, Long userId) {
+    @Override  //根据商品id查询
+    public ShoppingCart selectByGoodId(Integer goodId, Long userId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取Mapper
@@ -89,7 +89,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCart;
     }
 
-    @Override
+    @Override  //向购物车中添加商品
     public int add(ShoppingCart shoppingCart) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -101,6 +101,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         sqlSession.close();//释放资源
         return i;
     }
-
 
   }

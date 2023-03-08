@@ -14,19 +14,17 @@ public class SMSUtils {
 
 	/**
 	 * 发送短信
-	 * @param signName 签名
-	 * @param templateCode 模板
 	 * @param phoneNumbers 手机号
-	 * @param param 参数
+	 * @param param 验证码
 	 */
-	public static void sendMessage(String signName, String templateCode,String phoneNumbers,String param){
-		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI5tLVNupDExs4trwxD6YL", "MZoGVOUmJ73uEHmYDoNZJGhovh21Ae");
+	public static void sendMessage(String phoneNumbers,String param){
+		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI5tQwyxA7psnLs8iQYWA1", "2x6HLih6m7JYMb7CYIhnUN0wRfaYaT");
 		IAcsClient client = new DefaultAcsClient(profile);
 
 		SendSmsRequest request = new SendSmsRequest();
 		request.setSysRegionId("cn-hangzhou");
 		request.setPhoneNumbers(phoneNumbers);
-		request.setSignName(signName);
+		request.setSignName("朱迟镟个人博客");
 		request.setTemplateCode("SMS_267740057");
 		request.setTemplateParam("{\"code\":\""+param+"\"}");
 		try {

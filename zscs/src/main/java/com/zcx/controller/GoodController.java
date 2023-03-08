@@ -24,7 +24,9 @@ import java.util.List;
 public class GoodController extends BaseServlet {
     private final GoodService service = new GoodServiceImpl();
 
-
+    /**
+     * 分页条件查询
+     */
     public void page(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String _page = request.getParameter("page");
         String _pageSize = request.getParameter("pageSize");
@@ -42,6 +44,9 @@ public class GoodController extends BaseServlet {
         response.getWriter().write(jsonString);
     }
 
+    /**
+     * 删除
+     */
     public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BufferedReader br = request.getReader();
         String s = br.readLine();
@@ -55,6 +60,10 @@ public class GoodController extends BaseServlet {
         }
     }
 
+
+    /**
+     * 状态修改
+     */
     public void status(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BufferedReader br = request.getReader();
         String s = br.readLine();
@@ -69,6 +78,10 @@ public class GoodController extends BaseServlet {
         }
     }
 
+
+    /**
+     * 添加
+     */
     public void add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //将请求体中数据封装到实体类
         BufferedReader br = request.getReader();
@@ -85,6 +98,10 @@ public class GoodController extends BaseServlet {
             response.getWriter().write(JSON.toJSONString(Return.error("error")));
         }
     }
+
+    /**
+     * 修改
+     */
     public void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //将请求体中数据封装到实体类
         BufferedReader br = request.getReader();
@@ -106,6 +123,10 @@ public class GoodController extends BaseServlet {
         }
     }
 
+
+    /**
+     *根据ID查询
+     */
     public void selectById(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String id = request.getParameter("id");
        // System.out.println(id);
@@ -114,6 +135,10 @@ public class GoodController extends BaseServlet {
         response.getWriter().write(JSON.toJSONString(Return.success(good)));
 
     }
+
+    /**
+     *查询所有
+     */
     public void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<Good> goods = service.list();
         response.setContentType("text/json;charset=utf-8");
@@ -121,6 +146,9 @@ public class GoodController extends BaseServlet {
 
     }
 
+    /**
+     *查询当前分类下的商品
+     */
     public void categoryList(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String categoryName = new String(request.getParameter("categoryName").getBytes("iso-8859-1"), "utf-8");
         List<Good> goods = service.categoryList(categoryName);

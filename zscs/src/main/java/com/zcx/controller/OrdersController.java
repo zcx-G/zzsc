@@ -20,7 +20,9 @@ import java.io.IOException;
 public class OrdersController extends BaseServlet {
     private final OrdersService service = new OrdersServiceImpl();
 
-
+    /**
+     * 订单提交
+     */
     public void submit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //将请求体中数据封装到实体类
         BufferedReader br = request.getReader();
@@ -37,6 +39,9 @@ public class OrdersController extends BaseServlet {
 
     }
 
+    /**
+     *分页查询
+     */
     public void page(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         int page = Integer.parseInt(request.getParameter("page"));
@@ -49,6 +54,9 @@ public class OrdersController extends BaseServlet {
         response.getWriter().write(JSON.toJSONString(pageBeanReturn));
     }
 
+    /**
+     *查询所有
+     */
     public void all(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         int page = Integer.parseInt(request.getParameter("page"));
@@ -63,6 +71,9 @@ public class OrdersController extends BaseServlet {
         response.getWriter().write(JSON.toJSONString(pageBeanReturn));
      }
 
+    /**
+     *修改状态
+     */
     public void status(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String status = request.getParameter("status");
         String orderId = request.getParameter("id");

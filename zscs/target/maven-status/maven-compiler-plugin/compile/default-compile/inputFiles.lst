@@ -5,7 +5,6 @@ D:\code\chapter\zscs\src\main\java\com\zcx\pojo\Return.java
 D:\code\chapter\zscs\src\main\java\com\zcx\controller\OrdersController.java
 D:\code\chapter\zscs\src\main\java\com\zcx\mapper\ShoppingCartMapper.java
 D:\code\chapter\zscs\src\main\java\com\zcx\service\impl\CategoryServiceImpl.java
-D:\code\chapter\zscs\src\main\java\com\zcx\service\OrderDetailService.java
 D:\code\chapter\zscs\src\main\java\com\zcx\web\servlet\UploadServlet.java
 D:\code\chapter\zscs\src\main\java\com\zcx\service\impl\AddressBookServiceImpl.java
 D:\code\chapter\zscs\src\main\java\com\zcx\mapper\GoodMapper.java
@@ -32,7 +31,6 @@ D:\code\chapter\zscs\src\main\java\com\zcx\service\AddressBookService.java
 D:\code\chapter\zscs\src\main\java\com\zcx\service\UserService.java
 D:\code\chapter\zscs\src\main\java\com\zcx\controller\UserController.java
 D:\code\chapter\zscs\src\main\java\com\zcx\mapper\UserMapper.java
-D:\code\chapter\zscs\src\main\java\com\zcx\service\impl\OrderDetailServiceImpl.java
 D:\code\chapter\zscs\src\main\java\com\zcx\web\filter\filter.java
 D:\code\chapter\zscs\src\main\java\com\zcx\utils\CheckCodeUtil.java
 D:\code\chapter\zscs\src\main\java\com\zcx\service\CategoryService.java
@@ -42,5 +40,4 @@ D:\code\chapter\zscs\src\main\java\com\zcx\controller\ShoppingCartController.jav
 D:\code\chapter\zscs\src\main\java\com\zcx\service\impl\UserServiceImpl.java
 D:\code\chapter\zscs\src\main\java\com\zcx\service\ShoppingCartService.java
 D:\code\chapter\zscs\src\main\java\com\zcx\service\impl\OrdersServiceImpl.java
-D:\code\chapter\zscs\src\main\java\com\zcx\mapper\OrderDetailMapper.java
 D:\code\chapter\zscs\src\main\java\com\zcx\web\servlet\DownloadServlet.java

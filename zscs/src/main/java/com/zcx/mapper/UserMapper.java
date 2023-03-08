@@ -16,7 +16,7 @@ public interface UserMapper {
     User select(String phone);
 
     /**
-     * 根据电话号码查询用户对象
+     * 根据Id查询用户对象
      */
     @Select("select * from user where id = #{userId}")
     User selectById(Long userId);
@@ -30,7 +30,7 @@ public interface UserMapper {
     int add(String phone);
 
     /**
-     * 根据用户名和密码查询管理员对象
+     * 根据用户名查询管理员对象
      */
     @Select("select * from tb_root where username = #{username}")
     Root selectRoot(String username);

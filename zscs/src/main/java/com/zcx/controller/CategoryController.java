@@ -24,6 +24,9 @@ import java.util.List;
 public class CategoryController extends BaseServlet {
     private final CategoryService service = new CategoryServiceImpl();
 
+    /**
+     * 分页查询
+     */
     public void page(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String _page = request.getParameter("page");
         String _pageSize = request.getParameter("pageSize");
@@ -38,7 +41,9 @@ public class CategoryController extends BaseServlet {
         response.getWriter().write(jsonString);
     }
 
-
+    /**
+     * 添加
+     */
     public void add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //将请求体中数据封装到实体类
         BufferedReader br = request.getReader();
@@ -58,6 +63,9 @@ public class CategoryController extends BaseServlet {
         }
     }
 
+    /**
+     * 修改
+     */
     public void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //将请求体中数据封装到实体类
         BufferedReader br = request.getReader();
@@ -77,6 +85,9 @@ public class CategoryController extends BaseServlet {
         }
     }
 
+    /**
+     * 删除
+     */
     public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String id = request.getParameter("id");
         int i = service.delete(Long.valueOf((id)));
@@ -87,11 +98,13 @@ public class CategoryController extends BaseServlet {
         }
     }
 
+    /**
+     * 查询所有
+     */
     public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> list = service.list();
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(JSON.toJSONString(Return.success(list)));
-
     }
 }
 

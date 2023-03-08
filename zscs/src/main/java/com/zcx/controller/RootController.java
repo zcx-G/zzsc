@@ -20,7 +20,11 @@ import java.io.IOException;
 public class RootController extends BaseServlet {
     UserService service = new UserServiceImpl();
 
-    public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * 登录
+     */
+    public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/json;charset=utf-8");
         //将请求体中账号密码封装到实体类
         BufferedReader br = request.getReader();
         String s = br.readLine();
@@ -30,8 +34,9 @@ public class RootController extends BaseServlet {
         String password = login.getPassword();
         password = DigestUtils.md5Hex(password);
 
+
         //根据用户名判断是否存在
-        Root root = service.login(login.getUsername());
+        Root root = service.rootSelect(login.getUsername());
         if (root == null) {
             response.getWriter().write(JSON.toJSONString(Return.error("用户名不存在")));
         }
@@ -41,12 +46,15 @@ public class RootController extends BaseServlet {
 
         } else {
             request.getSession().setAttribute("root", root.getId());
-            response.setContentType("text/json;charset=utf-8");
+
             response.getWriter().write(JSON.toJSONString(Return.success(root)));
         }
     }
 
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * 登出
+     */
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //清理Session中当前登陆的管理员id
         request.getSession().removeAttribute("root");
         response.setContentType("text/json;charset=utf-8");

@@ -6,9 +6,9 @@ import com.zcx.pojo.User;
 
 public interface UserService {
 
-    User select(String phone);
+    User userSelect(String phone);      //用户查询
 
-    int add(String phone);
+    int add(String phone);              //添加用户
 
-    Root login(String username);
+    Root rootSelect(String username);  //管理员查询
 }

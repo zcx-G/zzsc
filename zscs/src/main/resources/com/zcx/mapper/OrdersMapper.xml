@@ -10,6 +10,12 @@
         <result column="pay_method" property="payMethod"/>
         <result column="user_name" property="userName"/>
     </resultMap>
+
+    <resultMap id="orderDetailResultMap" type="orderDetail">
+        <result column="order_id" property="orderId"/>
+        <result column="good_id" property="goodId"/>
+    </resultMap>
+
     <select id="selectAllPage" resultType="com.zcx.pojo.Orders" resultMap="ordersResultMap">
         select *
         from orders
@@ -21,4 +27,19 @@
         limit #{begin},#{size}
     </select>
 
+
+    <insert id="addAll" parameterType="com.zcx.pojo.OrderDetail">
+        INSERT INTO order_detail(id, name, image, order_id, good_id, number, amount) VALUES
+        <foreach collection="orderDetails" item="orderDetail"  separator=",">
+            (
+            #{orderDetail.id},
+            #{orderDetail.name},
+            #{orderDetail.image},
+            #{orderDetail.orderId},
+            #{orderDetail.goodId},
+            #{orderDetail.number},
+            #{orderDetail.amount}
+            )
+        </foreach>
+    </insert>
 </mapper>

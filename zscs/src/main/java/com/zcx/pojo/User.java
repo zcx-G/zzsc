@@ -1,10 +1,13 @@
 package com.zcx.pojo;
 
 import lombok.Data;
+
 import java.io.Serializable;
+
 /**
- * 用户信息
+ * 用户
  */
+
 @Data
 public class User implements Serializable {
 
@@ -12,18 +15,13 @@ public class User implements Serializable {
 
     private Long id;
 
-    //姓名
-    private String name;
+    private String name;  //姓名
 
-    //手机号
-    private String phone;
+    private String phone;  //手机号
 
-    //性别 0 女 1 男
-    private String sex;
+    private String sex;  //性别 0 女 1 男
 
-    //身份证号
-    private String idNumber;
+    private String idNumber;  //身份证号
 
-    //状态 0:禁用，1:正常
-    private Integer status;
+    private Integer status;  //状态 0:禁用，1:正常
 }

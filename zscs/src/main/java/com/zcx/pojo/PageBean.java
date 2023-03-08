@@ -2,6 +2,9 @@ package com.zcx.pojo;
 
 import java.util.List;
 
+/**
+ * 分页数据存储
+ */
 public class PageBean<T> {
     private long count;//
     private List<T> rows;

@@ -3,8 +3,8 @@ package com.zcx.controller;
 import com.alibaba.fastjson.JSON;
 import com.zcx.pojo.OrderDetail;
 import com.zcx.pojo.Return;
-import com.zcx.service.OrderDetailService;
-import com.zcx.service.impl.OrderDetailServiceImpl;
+import com.zcx.service.OrdersService;
+import com.zcx.service.impl.OrdersServiceImpl;
 import com.zcx.web.servlet.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -17,22 +17,17 @@ import java.util.List;
 
 @WebServlet("/orderDetail/*")
 public class OrderDetailController extends BaseServlet {
-    private final OrderDetailService service = new OrderDetailServiceImpl();
+   private final OrdersService service = new OrdersServiceImpl();
 
-
+    /**
+     * //根据订单ID查询订单详情
+     */
     public void selectById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String orderId = request.getParameter("id");
         List<OrderDetail> orderDetails = service.selectByOrderId(Long.valueOf(orderId));
 
-        System.out.println(orderDetails);
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(JSON.toJSONString(Return.success(orderDetails)));
     }
 
-    public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    public void status(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
 }

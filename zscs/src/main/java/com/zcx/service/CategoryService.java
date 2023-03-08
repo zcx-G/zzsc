@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface CategoryService {
 
-
+    //分页查询
     Return<PageBean> selectByPage(int currentPage, int pageSize);
 
-    int add(Category category);
+    int add(Category category);     //添加分类
 
-    int update(Category category);
+    int update(Category category);  //修改分类
 
-    int delete(Long id);
+    int delete(Long id);            //删除分类
 
-    List<Category> list();
+    List<Category> list();          //查询所有分类
 }

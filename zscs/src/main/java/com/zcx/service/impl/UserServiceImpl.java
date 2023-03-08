@@ -11,17 +11,19 @@ import org.apache.ibatis.session.SqlSessionFactory;
 public class UserServiceImpl implements UserService {
     SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
 
-    @Override
-    public User select(String phone) {
+    @Override  //用户查询
+    public User userSelect(String phone) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取Mapper
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
-        return mapper.select(phone);
+        User user = mapper.select(phone);
+        sqlSession.close();//释放资源
+        return user;
     }
 
-    @Override
+    @Override  //添加用户
     public int add(String phone) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -34,13 +36,13 @@ public class UserServiceImpl implements UserService {
         return i;
     }
 
-    @Override
-    public Root login(String username){
+    @Override  //管理员查询
+    public Root rootSelect(String username){
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        //获取UserMapper
+        //获取Mapper
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        //调用方法
+
         Root root = mapper.selectRoot(username);
 
         sqlSession.close();//释放资源

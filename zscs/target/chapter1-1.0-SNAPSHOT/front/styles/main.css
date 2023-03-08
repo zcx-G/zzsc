@@ -5,46 +5,35 @@
   height: 100%;
 }
 
-#main .divHead {
-  background: url(../images/mainBg.png);
-  background-repeat: no-repeat;
-  height: 152rem;
-  background-size: contain;
-}
-
-#main .divHead img {
-  position: absolute;
-  left: 19rem;
-  top: 41rem;
-  width: 28rem;
-  height: 28rem;
-}
-
 #main .divTitle {
-  width: 345rem;
+  width: 100%;
   height: 118rem;
   opacity: 1;
   background: #ffffff;
-  border-radius: 6rem;
   box-shadow: 0rem 2rem 5rem 0rem rgba(69, 69, 69, 0.1);
-  position: absolute;
-  left: 50%;
-  top: 77rem;
-  transform: translate(-50%, 0);
   box-sizing: border-box;
   padding: 14rem 0 0 8rem;
 }
 #main .divTitle .divStatic {
   display: flex;
+  margin-top: 15rem;
+  height: 40rem;
 }
 #main .divTitle .divStatic .logo {
-  width: 39rem;
-  height: 39rem;
+  width: 36rem;
+  height: 36rem;
   opacity: 1;
   background: #333333;
   border-radius: 6rem;
   margin-right: 10rem;
 }
+
+#main .divTitle .divStatic .userImage {
+  width: 38rem;
+  height: 38rem;
+  margin-left: 180rem;
+}
+
 
 #main .divTitle .divStatic .divDesc .divName {
   width: 90rem;
@@ -106,7 +95,7 @@
 }
 
 #main .divBody .divType ul {
-  margin-top: 61rem;
+
   overflow-y: auto;
   height: calc(100% - 61rem);
   padding-bottom: 200rem;
@@ -144,7 +133,7 @@
 }
 
 #main .divBody .divMenu > div {
-  margin-top: 61rem;
+  margin-top: 6rem;
   overflow-y: auto;
   height: calc(100% - 61rem);
   padding-bottom: 200rem;
@@ -231,15 +220,16 @@
   bottom: 0;
 }
 
-#main .divBody .divMenu .divItem .divNum .divDishNum {
+#main .divBody .divMenu .divItem .divNum .divGoodNum {
   font-size: 15rem;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;
   text-align: center;
   color: #333333;
-  line-height: 36rem;
+  /*line-height: 36rem;*/
   letter-spacing: 0;
-  width: auto;
+  width: 15rem;
+;
 }
 
 #main .divBody .divMenu .divItem .divNum .divTypes {
@@ -257,20 +247,22 @@
   letter-spacing: 0;
 }
 
-#main .divBody .divMenu .divItem .divNum img {
-  width: 36rem;
-  height: 36rem;
+
+#main .divBody .divMenu .divItem .divNum i {
+  width: 23rem;
+  height: 23rem;
 }
 
 #main .divCart {
-  width: 345rem;
-  height: 44rem;
+  /*width: 345rem;*/
+  width: 100%;
+  height: 55rem;
   opacity: 1;
-  background: #000000;
-  border-radius: 25rem;
-  box-shadow: 0rem 3rem 5rem 0rem rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  /*border-radius: 25rem;*/
+  /*box-shadow: 0rem 3rem 5rem 0rem rgba(0, 0, 0, 0.25);*/
   margin: 0 auto;
-  bottom: 24rem;
+  bottom: 0rem;
   position: fixed;
   left: 50%;
   transform: translate(-50%, 0);
@@ -311,18 +303,19 @@
 }
 
 #main .divCart > div:last-child {
-  width: 102rem;
-  height: 36rem;
+  width: 120rem;
+  height: 45rem;
   opacity: 1;
   border-radius: 18rem;
-  font-size: 15rem;
+  font-size: 20rem;
+  color:#ffffff;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;
   text-align: center;
-  line-height: 36rem;
+  line-height: 45rem;
   position: absolute;
-  right: 5rem;
-  top: 4rem;
+  right: 8rem;
+  top: 8rem;
 }
 
 #main .divCart .btnSubmit {
@@ -331,7 +324,7 @@
 }
 #main .divCart .btnSubmitActive {
   color: #333333;
-  background: #ffc200;
+  background: #50afff;
 }
 
 #main .divCart .divGoodsNum {
@@ -421,7 +414,7 @@
   height: 30rem;
   opacity: 1;
   background: #ffffff;
-  border: 1rem solid #ffc200;
+  border: 1rem solid #50afff;
   border-radius: 7rem;
   line-height: 30rem;
   padding-left: 13rem;
@@ -435,7 +428,7 @@
 }
 
 #main .dialogFlavor .divContent .spanActive {
-  background: #ffc200;
+  background: #50afff;
   font-weight: 500;
 }
 
@@ -592,10 +585,11 @@
   height: 36rem;
 }
 
-#main .dialogCart .divCartContent .divCartItem .divNum img {
-  width: 36rem;
-  height: 36rem;
+#main .dialogCart .divCartContent .divCartItem .divNum i {
+  width: 23rem;
+  height: 23rem;
 }
+
 
 #main .dialogCart .divCartContent .divCartItem .divSplit {
   width: calc(100% - 64rem);
@@ -688,7 +682,7 @@
   display: flex;
 }
 
-#main .detailsDialog .divNum .divDishNum {
+#main .detailsDialog .divNum .divGoodNum {
   font-size: 15rem;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;
@@ -848,7 +842,7 @@
   display: flex;
 }
 
-#main .setMealDetailsDialog .divNum .divDishNum {
+#main .setMealDetailsDialog .divNum .divGoodNum {
   font-size: 15rem;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;

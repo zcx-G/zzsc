@@ -15,39 +15,28 @@ public class Orders implements Serializable {
 
     private Long id;
 
-    //订单号
-    private String number;
+    private String number;  //订单号
 
     //订单状态 1待付款，2待派送，3已派送，4已完成，5已取消
     private Integer status;
 
-    //下单用户id
-    private Long userId;
+    private Long userId;      //下单用户id
 
-    //地址id
-    private Long addressBookId;
+    private Long addressBookId;  //地址id
 
-    //下单时间
-    private String orderTime;
+    private String orderTime;    //下单时间
 
-    //支付方式 1微信，2支付宝
-    private Integer payMethod;
+    private Integer payMethod;   //支付方式 1微信，2支付宝
 
-    //实收金额
-    private BigDecimal amount;
+    private BigDecimal amount;   //实收金额
 
-    //备注
-    private String remark;
+    private String remark;       //备注
 
-    //用户名
-    private String userName;
+    private String userName;     //用户名
 
-    //手机号
-    private String phone;
+    private String phone;        //手机号
 
-    //地址
-    private String address;
+    private String address;      //地址
 
-    //收货人
-    private String consignee;
+    private String consignee;     //收货人
 }

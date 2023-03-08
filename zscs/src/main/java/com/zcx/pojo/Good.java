@@ -15,31 +15,24 @@ public class Good implements Serializable {
 
     private Integer id;
 
-    //商品名称
-    private String name;
+    private String name;  //商品名称
 
-    //商品分类
-    private String categoryName;
+    private String categoryName;  //商品分类
 
-    //商品价格
-    private BigDecimal price;
+    private BigDecimal price;  //商品价格
 
-    //图片
-    private String image;
+    private  Integer saleNum;  //销量
 
-    //描述信息
-    private String description;
+    private String image;  //图片
 
-    //0 停售 1 起售
-    private Integer status;
+    private String description;  //描述信息
 
-    //顺序
-    private Integer sort;
+    private Integer status;  //0 停售 1 起售
 
-    //修改时间
-    private String updateTime;
+    private Integer sort;  //顺序
 
-    //修改人
-    private Integer updateUser;
+    private String updateTime;  //修改时间
+
+    private Integer updateUser;  //修改人
 
 }

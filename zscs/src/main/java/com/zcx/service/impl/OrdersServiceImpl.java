@@ -14,19 +14,20 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+
 public class OrdersServiceImpl implements OrdersService {
     SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
 
-    @Override
+    @Override //订单提交
     public int submit(Orders orders) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取Mapper
         OrdersMapper ordersMapper = sqlSession.getMapper(OrdersMapper.class);
-        OrderDetailMapper orderDetailMapper = sqlSession.getMapper(OrderDetailMapper.class);
         ShoppingCartMapper shoppingCartMapper = sqlSession.getMapper(ShoppingCartMapper.class);
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         AddressBookMapper addressBookMapper = sqlSession.getMapper(AddressBookMapper.class);
+        GoodMapper goodMapper = sqlSession.getMapper(GoodMapper.class);
 
         //获取购物车，用户，地址信息
         List<ShoppingCart> shoppingCarts = shoppingCartMapper.list(orders.getUserId());
@@ -37,21 +38,20 @@ public class OrdersServiceImpl implements OrdersService {
         String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         Long orderId = Long.valueOf(time+orders.getUserId());
 
-        //订单详情及保存
+        //订单详情
         AtomicInteger amount = new AtomicInteger(0);
         List<OrderDetail> orderDetails = shoppingCarts.stream().map((item) ->{
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrderId(orderId);
             orderDetail.setNumber(item.getNumber());
             orderDetail.setGoodId(item.getGoodId());
+            goodMapper.addSaleNum(item.getNumber(),item.getGoodId());
             orderDetail.setName(item.getName());
             orderDetail.setImage(item.getImage());
             orderDetail.setAmount(item.getAmount());
             amount.addAndGet(item.getAmount().multiply(new BigDecimal(item.getNumber())).intValue());
             return orderDetail;
         }).collect(Collectors.toList());
-        //System.out.println(orderDetails);
-        orderDetailMapper.addAll(orderDetails);
 
         //订单及保存
         orders.setId(orderId);
@@ -65,6 +65,10 @@ public class OrdersServiceImpl implements OrdersService {
         orders.setAmount(new BigDecimal(amount.get()));
         int add = ordersMapper.add(orders);
 
+        //订单详情及保存
+        System.out.println(orderDetails);
+        ordersMapper.addAll(orderDetails);
+
         //清空购物车
         shoppingCartMapper.deleteAll(orders.getUserId());
 
@@ -73,13 +77,7 @@ public class OrdersServiceImpl implements OrdersService {
         return add;
     }
 
-    /**
-     * 订单查询
-     * @param page
-     * @param pageSize
-     * @return
-     */
-    @Override
+    @Override  //分页查询
     public Return<PageBean> selectOrderPage(Long userId, int page, int pageSize) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -90,7 +88,7 @@ public class OrdersServiceImpl implements OrdersService {
         int size = pageSize;
 
         List<Orders> orders =  mapper.selectOrderPage(userId, begin, size);
-        int count = mapper.selectCount();
+        int count = mapper.selectOrderCount(userId);
 
         System.out.println(orders);
         PageBean<Orders> pageBean = new PageBean<>();
@@ -100,14 +98,7 @@ public class OrdersServiceImpl implements OrdersService {
         return Return.success(pageBean);
     }
 
-
-    /**
-     * 所有订单查询
-     * @param page
-     * @param pageSize
-     * @return
-     */
-    @Override
+    @Override  //查询所有
     public Return<PageBean> selectAllPage(int page, int pageSize , String orderId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -130,7 +121,7 @@ public class OrdersServiceImpl implements OrdersService {
         return Return.success(pageBean);
     }
 
-    @Override
+    @Override  //修改状态
     public int updateStatus(Long id, String status) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -142,5 +133,15 @@ public class OrdersServiceImpl implements OrdersService {
         sqlSession.close();
         return i;
 
+    }
+
+    @Override  //根据订单ID查询订单详情
+    public List<OrderDetail> selectByOrderId(Long orderId) {
+        //获取SQLSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //获取Mapper
+        OrdersMapper mapper = sqlSession.getMapper(OrdersMapper.class);
+
+        return mapper.selectByOrderId(orderId);
     }
 }

@@ -45,7 +45,7 @@
   // 响应拦截器
   service.interceptors.response.use(res => {
       if (res.data.code === 0 && res.data.msg === 'NOTLOGIN') {// 返回登录页面
-        console.log('---/backend/page/login/login.html---')
+        console.log('---/backend/page/login.html---')
         localStorage.removeItem('userInfo')
         window.top.location.href = '../page/login.html'
       } else {
@@ -55,7 +55,7 @@
     error => {
       console.log('err' + error)
       let { message } = error;
-      if (message == "Network Error") {
+      if (message === "Network Error") {
         message = "后端接口连接异常";
       }
       else if (message.includes("timeout")) {

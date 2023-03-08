@@ -1,6 +1,6 @@
 function loginApi(data) {
   return $axios({
-    'url': 'http://localhost/root/login',
+    'url': '/root/login',
     'method': 'post',
     data
   })
@@ -8,7 +8,7 @@ function loginApi(data) {
 
 function logoutApi(){
   return $axios({
-    'url': 'http://localhost/root/logout',
+    'url': '/root/logout',
     'method': 'post',
   })
 }

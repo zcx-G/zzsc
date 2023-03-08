@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zcx.mapper.GoodMapper">
     <resultMap id="goodResultMap" type="good">
-        <result column="category_id" property="categoryId"/>
         <result column="category_name" property="categoryName"/>
         <result column="update_time" property="updateTime"/>
         <result column="update_user" property="updateUser"/>

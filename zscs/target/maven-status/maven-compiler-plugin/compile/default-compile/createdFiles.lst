@@ -3,7 +3,6 @@ com\zcx\utils\CheckCodeUtil.class
 com\zcx\controller\AddressBookController.class
 com\zcx\web\servlet\UploadServlet.class
 com\zcx\service\UserService.class
-com\zcx\service\impl\OrderDetailServiceImpl.class
 com\zcx\service\impl\OrdersServiceImpl.class
 com\zcx\utils\SMSUtils.class
 com\zcx\pojo\Root.class
@@ -28,8 +27,6 @@ com\zcx\web\servlet\DownloadServlet.class
 com\zcx\controller\UserController.class
 com\zcx\pojo\Good.class
 com\zcx\controller\GoodController.class
-com\zcx\service\OrderDetailService.class
-com\zcx\mapper\OrderDetailMapper.class
 com\zcx\mapper\AddressBookMapper.class
 com\zcx\service\impl\AddressBookServiceImpl.class
 com\zcx\pojo\Return.class

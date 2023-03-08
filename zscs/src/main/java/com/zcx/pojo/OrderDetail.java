@@ -15,21 +15,15 @@ public class OrderDetail implements Serializable {
 
     private Long id;
 
-    //名称
-    private String name;
+    private String name;       //名称
 
-    //订单id
-    private Long orderId;
+    private Long orderId;      //订单id
 
-    //商品id
-    private Long goodId;
+    private Integer goodId;    //商品id
 
-    //数量
-    private Integer number;
+    private Integer number;    //数量
 
-    //金额
-    private BigDecimal amount;
+    private BigDecimal amount; //金额
 
-    //图片
-    private String image;
+    private String image;      //图片
 }

@@ -12,16 +12,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet("/shoppingCart/*")
 public class ShoppingCartController extends BaseServlet {
      ShoppingCartService service = new ShoppingCartServiceImpl();
 
-
+    /**
+     * 添加
+     */
     public void add(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         //将请求体中数据封装到实体类
@@ -53,6 +53,9 @@ public class ShoppingCartController extends BaseServlet {
         }
     }
 
+    /**
+     *减少
+     */
     public void sub(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         //将请求体中数据封装到实体类
@@ -75,6 +78,9 @@ public class ShoppingCartController extends BaseServlet {
         }
     }
 
+    /**
+     *查询所有
+     */
     public void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Long userId = (Long) request.getSession().getAttribute("user");
         List<ShoppingCart> list = service.list(userId);
@@ -82,6 +88,9 @@ public class ShoppingCartController extends BaseServlet {
         response.getWriter().write(JSON.toJSONString(Return.success(list)));
     }
 
+    /**
+     *清空
+     */
     public void clean(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Long userId = (Long) request.getSession().getAttribute("user");
         int i = service.deleteAll(userId);

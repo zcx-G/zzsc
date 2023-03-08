@@ -15,24 +15,17 @@ public class ShoppingCart implements Serializable {
 
     private Long id;
 
-    //名称
-    private String name;
+    private String name;  //名称
 
-    //用户id
-    private Long userId;
+    private Long userId;  //用户id
 
-    //菜品id
-    private Long goodId;
+    private Integer goodId;  //菜品id
 
-    //数量
-    private Integer number;
+    private Integer number;  //数量
 
-    //金额
-    private BigDecimal amount;
+    private BigDecimal amount;  //金额
 
-    //图片
-    private String image;
+    private String image;     //图片
 
-    //创建时间
-    private String createTime;
+    private String createTime;  //创建时间
 }

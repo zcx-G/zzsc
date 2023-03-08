@@ -17,7 +17,7 @@ public class GoodServiceImpl implements GoodService {
     SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
 
 
-    @Override
+    @Override  //查询所有商品
     public List<Good> list() {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -28,7 +28,7 @@ public class GoodServiceImpl implements GoodService {
         return goods;
     }
 
-    @Override
+    @Override  //查询当前分类下的商品
     public List<Good> categoryList(String categoryName) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -39,7 +39,7 @@ public class GoodServiceImpl implements GoodService {
         return goods;
     }
 
-    @Override
+    @Override  //根据ID查询
     public Good selectById(int id) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -50,7 +50,7 @@ public class GoodServiceImpl implements GoodService {
         return good;
     }
 
-    @Override
+    @Override  //分页条件查询
     public Return<PageBean> selectGoodPage(int currentPage, int pageSize, String name) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -74,7 +74,7 @@ public class GoodServiceImpl implements GoodService {
         return Return.success(pageBean);
     }
 
-    @Override
+    @Override  //添加商品
     public int add(Good good) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -89,6 +89,7 @@ public class GoodServiceImpl implements GoodService {
         return i;
     }
 
+    @Override  //修改商品
     public int update(Good good) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -103,7 +104,7 @@ public class GoodServiceImpl implements GoodService {
         return i;
     }
 
-    @Override
+    @Override  //删除商品
     public int delete(int[] ids) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -117,7 +118,7 @@ public class GoodServiceImpl implements GoodService {
         return i;
     }
 
-    @Override
+    @Override  //修改商品状态
     public int status(int[] ids,int status) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
