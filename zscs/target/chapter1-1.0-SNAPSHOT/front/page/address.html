@@ -35,11 +35,11 @@
                         <span>{{item.sex === '0' ? '女士' : '先生'}}</span>
                         <span>{{item.phone}}</span>
                     </div>
-                    <img src="./../images/edit.png" @click.stop.prevent="toAddressEditPage(item)"/>
+                    <i class="el-icon-edit" @click.stop.prevent="toAddressEditPage(item)"></i>
                     <div class="divSplit"></div>
                     <div class="divDefault" >
-                        <img src="./../images/checked_true.png" v-if="item.isDefault === 1">
-                        <img src="./../images/checked_false.png" @click.stop.prevent="setDefaultAddress(item)" v-else>设为默认地址
+                        <i class="el-icon-success" v-if="item.isDefault === 1" style="color:#50afff">&nbsp;<i>默认地址</i></i>
+                        <i class="el-icon-circle-check" @click.stop.prevent="setDefaultAddress(item)"  v-else>&nbsp;<i>设为默认地址</i></i>
                     </div>
                 </div>
             </div>
@@ -60,50 +60,7 @@
                 el:"#address",
                 data(){
                     return {
-                        addressList:[
-                        //     {
-                        //     label:'公司',
-                        //     detail:'金燕龙写字楼 4层电梯口fsdfdsfsdfsdfsssssssssssss（电梯可…）',
-                        //     consignee:'周先生',//姓名
-                        //     phone:18544445566,//手机号
-                        //     isDefault:0,//是否是默认
-                        // },
-                        // {
-                        //     label:'家',
-                        //     detail:'金燕龙写字楼 4层电梯口（电梯可…）',
-                        //     consignee:'周先生',//姓名
-                        //     phone:18544445566,//手机号
-                        //     isDefault:0,//是否是默认
-                        // },
-                        // {
-                        //     label:'学校',
-                        //     detail:'金燕龙写字楼 4层电梯口（电梯可…）',
-                        //     consignee:'周先生',//姓名
-                        //     phone:18544445566,//手机号
-                        //     isDefault:0,//是否是默认
-                        // },
-                        // {
-                        //     label:'公司',
-                        //     detail:'金燕龙写字楼 4层电梯口（电梯可…）',
-                        //     consignee:'周先生',//姓名
-                        //     phone:18544445566,//手机号
-                        //     isDefault:0,//是否是默认
-                        // },
-                        // {
-                        //     label:'公司',
-                        //     detail:'金燕龙写字楼 4层电梯口（电梯可…）',
-                        //     consignee:'周先生',//姓名
-                        //     phone:18544445566,//手机号
-                        //     isDefault:0,//是否是默认
-                        // },
-                        // {
-                        //     label:'公司',
-                        //     detail:'金燕龙写字楼 4层电梯口（电梯可…）',
-                        //     consignee:'周先生',//姓名
-                        //     phone:18544445566,//手机号
-                        //     isDefault:1,//是否是默认
-                        // }
-                    ],
+                        addressList:[],
                     }
                 },
                 computed:{},
@@ -135,9 +92,9 @@
                     },
                     async setDefaultAddress(item){
                         if(item.id){
-                            const res = await setDefaultAddressApi(item.id)
+                            const res = await setDefaultAddressApi({id:item.id})
                             if(res.code === 1){
-                            this.initData()
+                                await this.initData()
                             }else{
                                 this.$message.error(res.msg)
                             }

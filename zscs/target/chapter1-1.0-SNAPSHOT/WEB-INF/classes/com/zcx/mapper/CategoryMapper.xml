@@ -7,5 +7,4 @@
         <result column="update_time" property="updateTime"/>
         <result column="update_user" property="updateUser"/>
     </resultMap>
-
 </mapper>

@@ -76,10 +76,10 @@
             prop="categoryName"
           >
             <el-select
-              v-model="formData.categoryName"
+              v-model="formData.categoryId"
               placeholder="请选择商品分类"
             >
-              <el-option v-for="(item,index) in categoryList" :key="index" :label="item.name" :value="item.name" ></el-option>
+              <el-option v-for="(item,index) in categoryList" :key="index" :label="item.name" :value="item.id" ></el-option>
             </el-select>
           </el-form-item>
         </div>
@@ -183,12 +183,12 @@
               'name': '',
               'id': '',
               'price': '',
-              'code': '',
+              'saleNum': '',
               'image': '',
               'description': '',
-              'goodFlavors': [],
               'status': true,
-              'categoryName': ''
+              'categoryName': '',
+              'categoryId': ''
             }
           }
         },
@@ -198,7 +198,7 @@
               'name': [
                 {'required': true, 'message': '请填写商品名称', 'trigger': 'blur'}
               ],
-              'categoryName': [
+              'categoryId': [
                 {'required': true, 'message': '请选择商品分类', 'trigger': 'change'}
               ],
               'price': [
@@ -244,6 +244,7 @@
                 this.formData = { ...res.data }
                 this.formData.price = String(res.data.price/100)
                 this.formData.status = res.data.status === '1'
+
                 // this.formData.id = res.data.data.categoryName
                 // this.imageUrl = res.data.data.image
                 this.imageUrl = `/common/download?name=${res.data.image}`
@@ -269,9 +270,10 @@
             this.$refs[formName].validate((valid) => {
               if (valid) {
                 let params = {...this.formData}
+                console.log(this.formData)
                 params.status = this.formData ? 1 : 0
                 params.price *= 100
-                params.categoryName = this.formData.categoryName
+                params.categoryId = this.formData.categoryId
 
 
                 if(!this.imageUrl){
@@ -291,12 +293,12 @@
                           'name': '',
                           'id': '',
                           'price': '',
-                          'code': '',
+                          'saleNum': '',
                           'image': '',
                           'description': '',
-                          'goodFlavors': [],
                           'status': true,
-                          categoryName: ''
+                          'categoryName': '',
+                          'categoryId': ''
                         }
                       }
                     } else {
@@ -306,7 +308,7 @@
                     this.$message.error('请求出错了：' + err)
                   })
                 } else {
-                  delete params.updateTime
+                  // delete params.updateTime
                   editGood(params).then(res => {
                     if (res.code === 1) {
                       this.$message.success('商品修改成功！')
@@ -324,9 +326,8 @@
             })
           },
 
+          // 拼接down接口预览
           handleAvatarSuccess (response, file, fileList) {
-            // 拼接down接口预览
-
             if(response.code === 0 && response.msg === '未登录'){
               window.top.location.href = 'login.html'
             }else{

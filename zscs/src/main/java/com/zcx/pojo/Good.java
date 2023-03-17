@@ -17,7 +17,9 @@ public class Good implements Serializable {
 
     private String name;  //商品名称
 
-    private String categoryName;  //商品分类
+    private String categoryName;  //商品分类名称
+
+    private Long categoryId;  //商品分类ID
 
     private BigDecimal price;  //商品价格
 

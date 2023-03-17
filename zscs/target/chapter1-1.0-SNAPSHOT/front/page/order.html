@@ -50,10 +50,7 @@
                         <div class="btn" v-if="order.status === 4">
                             <div class="btnAgain" @click="addOrderAgain(order)">再来一单</div>
                         </div>
-<!--                        <hr color="black"/>-->
-
                     </van-cell>
-
                 </van-list>
             </div>
             <div class="divNoData" v-else>
@@ -113,7 +110,6 @@
                     }
                     const res = await orderPagingApi(this.paging)
                     if(res.code === 1){
-                        this.orderList.push(...res.data.rows)
                         let records = res.data.rows
                         if(records && Array.isArray(records)){
                             for (const item of records) {
@@ -126,7 +122,7 @@
                                 item.sumNum = number
                             }
                         }
-                        this.orderList = records
+                        this.orderList.push(...records)
                         console.log(this.orderList)
                         this.loading = false;
                         if(this.paging.page >= res.data.count){

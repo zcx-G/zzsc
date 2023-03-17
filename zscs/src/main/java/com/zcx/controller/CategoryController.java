@@ -103,6 +103,7 @@ public class CategoryController extends BaseServlet {
      */
     public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> list = service.list();
+        System.out.println(list);
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(JSON.toJSONString(Return.success(list)));
     }

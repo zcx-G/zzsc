@@ -7,10 +7,11 @@ function categoryListApi() {
   }
 
 //获取商品分类对应的商品
-function goodListApi(categoryName) {
+function goodListApi(params) {
     return $axios({
-        'url': '/good/categoryList?categoryName='+categoryName,
-        'method': 'get'
+        'url': '/good/categoryList',
+        'method': 'get',
+        params
     })
 }
 

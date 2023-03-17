@@ -40,7 +40,7 @@
         <!--分类栏-->
         <div class="divType">
             <ul>
-                <li v-for="(item,index) in categoryList" :key="index" @click="categoryClick(index,item.name)"
+                <li v-for="(item,index) in categoryList" :key="index" @click="categoryClick(index,item.id)"
                     :class="{active:activeType === index}">{{item.name}}
                 </li>
             </ul>
@@ -57,7 +57,7 @@
                     <div>
                         <div class="divName">{{item.name}}</div>
                         <div class="divDesc">{{item.description}}</div>
-                        <div class="divDesc">{{'月销' + (item.saleNum ? item.saleNum : 0) }}</div>
+                        <div class="divDesc">月销&nbsp{{(item.saleNum>99 ? '99+':item.saleNum) }}</div>
                         <div class="divBottom"><span>￥</span><span>{{item.price / 100}}</span></div>
                         <div class="divNum">
                             <div class="divSubtract" v-if="item.number > 0">
@@ -227,17 +227,17 @@
                 })
             },
             //分类点击
-            categoryClick(index, name) {
+            categoryClick(index, id) {
                 this.activeType = index
-                this.categoryName = name
+                this.categoryId = id
                 this.getGoodList()
             },
             //获取商品数据
             async getGoodList() {
-                if (!this.categoryName) {
+                if (!this.categoryId) {
                     return
                 }
-                const res = await goodListApi(this.categoryName)
+                const res = await goodListApi({id:this.categoryId})
                 if (res.code === 1) {
                     let goodList = res.data
                     const cartData  = this.cartData

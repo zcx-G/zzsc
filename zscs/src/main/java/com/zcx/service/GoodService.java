@@ -10,7 +10,7 @@ import java.util.List;
 public interface GoodService {
 
     //查询当前分类下的商品
-    List<Good> categoryList(String categoryName);
+    List<Good> categoryList(Long categoryId);
 
     //分页条件查询
     Return<PageBean> selectGoodPage(int page, int pageSize,String name);

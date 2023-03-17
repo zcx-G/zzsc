@@ -5,6 +5,8 @@
 <mapper namespace="com.zcx.mapper.GoodMapper">
     <resultMap id="goodResultMap" type="good">
         <result column="category_name" property="categoryName"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="sale_num" property="saleNum"/>
         <result column="update_time" property="updateTime"/>
         <result column="update_user" property="updateUser"/>
     </resultMap>

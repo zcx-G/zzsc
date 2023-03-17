@@ -2,7 +2,9 @@ package com.zcx.service.impl;
 
 
 
+import com.zcx.mapper.CategoryMapper;
 import com.zcx.mapper.GoodMapper;
+import com.zcx.pojo.Category;
 import com.zcx.pojo.Good;
 import com.zcx.pojo.PageBean;
 import com.zcx.pojo.Return;
@@ -29,12 +31,12 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override  //查询当前分类下的商品
-    public List<Good> categoryList(String categoryName) {
+    public List<Good> categoryList(Long categoryId) {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取Mapper
         GoodMapper mapper = sqlSession.getMapper(GoodMapper.class);
-        List<Good> goods = mapper.categoryList(categoryName);
+        List<Good> goods = mapper.categoryList(categoryId);
         sqlSession.close();
         return goods;
     }
@@ -79,10 +81,13 @@ public class GoodServiceImpl implements GoodService {
         //获取SQLSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取CategoryMapper
-        GoodMapper mapper = sqlSession.getMapper(GoodMapper.class);
+        GoodMapper goodMapper = sqlSession.getMapper(GoodMapper.class);
+        CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
 
         //调用方法
-        int i = mapper.add(good);
+        Category category = categoryMapper.selectById(good.getCategoryId());
+        good.setCategoryName(category.getName());
+        int i = goodMapper.add(good);
 
         sqlSession.commit();//提交事务
         sqlSession.close();//释放资源
@@ -95,8 +100,11 @@ public class GoodServiceImpl implements GoodService {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //获取CategoryMapper
         GoodMapper mapper = sqlSession.getMapper(GoodMapper.class);
+        CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
 
         //调用方法
+        Category category = categoryMapper.selectById(good.getCategoryId());
+        good.setCategoryName(category.getName());
         int i = mapper.update(good);
 
         sqlSession.commit();//提交事务

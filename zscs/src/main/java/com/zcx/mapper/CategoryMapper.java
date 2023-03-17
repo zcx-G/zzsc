@@ -9,35 +9,41 @@ import java.util.List;
 public interface CategoryMapper {
 
     @ResultMap("categoryResultMap")
-    @Select("select * from category limit #{begin},#{size}")
+    @Select("SELECT * FROM category LIMIT #{begin},#{size}")
     List<Category> selectByPage(@Param("begin") int begin,@Param("size") int size);
     //分页查询
 
-    @Select("select count(*) from category")
+    @Select("SELECT count(*) FROM category")
     int selectTotalCount();
     //分类总数
 
     @ResultMap("categoryResultMap")
-    @Select("select * from category")
+    @Select("SELECT * FROM category")
     List<Category> list();
     //查询所有分类
 
-    @Insert("insert into category" +
+
+    @ResultMap("categoryResultMap")
+    @Select("SELECT * FROM category WHERE id = #{id}")
+    Category selectById(Long id);
+    //根据ID查询
+
+    @Insert("INSERT INTO  category" +
             "(name,sort,update_time,update_user) " +
-            "values" +
+            "VALUES" +
             "(#{name},#{sort},#{updateTime},#{updateUser})")
     int add(Category category);
     //添加分类
 
-    @Update("update category " +
-            "set " +
+    @Update("UPDATE category " +
+            "SET " +
             "name = #{name},sort = #{sort}," +
             "update_time = #{updateTime},update_user = #{updateUser} " +
-            "where id =#{id}")
+            "WHERE id =#{id}")
     int update(Category category);
     //修改分类
 
-    @Delete("delete from category where id = #{id}")
+    @Delete("DELETE FROM category WHERE id = #{id}")
     int delete(Long id);
     //删除分类
 

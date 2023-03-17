@@ -150,9 +150,9 @@ public class GoodController extends BaseServlet {
      *查询当前分类下的商品
      */
     public void categoryList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String categoryName = new String(request.getParameter("categoryName").getBytes("iso-8859-1"), "utf-8");
-        List<Good> goods = service.categoryList(categoryName);
-        System.out.println(categoryName);;
+        String categoryId = request.getParameter("id");
+        List<Good> goods = service.categoryList(Long.valueOf(categoryId));
+        System.out.println(categoryId);
         System.out.println(goods);
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(JSON.toJSONString(Return.success(goods)));

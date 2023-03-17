@@ -44,23 +44,33 @@
   position: relative;
 }
 
-#address .divContent .divItem > img {
+#address .divContent .divItem > i {
   width: 16rem;
   height: 16rem;
   position: absolute;
   top: 40rem;
   right: 24rem;
+  font-size: 20rem;
 }
 
-#address .divContent .divItem .divDefault img {
-  width: 16rem;
+#address .divContent .divItem .divDefault i {
+  width: 160rem;
   height: 16rem;
+  font-size: 18rem;
+  font-family: PingFangSC, PingFangSC-Regular, serif;
+  text-align: left;
+  line-height: 20rem;
   opacity: 1;
+}
+
+#address .divContent .divItem .divDefault i>i {
+  font-size: 15rem;
+
 }
 
 #address .divContent .divItem .divAddress {
   font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
+  font-family: PingFangSC, PingFangSC-Regular, serif;
   font-weight: 400;
   text-align: left;
   color: #333333;
@@ -88,7 +98,7 @@
   height: 20rem;
   opacity: 1;
   font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
+  font-family: PingFangSC, PingFangSC-Regular, serif;
   font-weight: 400;
   text-align: left;
   color: #999999;

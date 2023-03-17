@@ -6,18 +6,10 @@ function addressListApi() {
     })
   }
 
-//获取最新地址
-function addressLastUpdateApi() {
-    return $axios({
-      'url': '/address/lastUpdate',
-      'method': 'get',
-    })
-}
-
 //新增地址
 function  addAddressApi(data){
     return $axios({
-        'url': '/address/save',
+        'url': '/address/add',
         'method': 'post',
         data
       })
@@ -26,8 +18,8 @@ function  addAddressApi(data){
 //修改地址
 function  updateAddressApi(data){
     return $axios({
-        'url': '/address',
-        'method': 'put',
+        'url': '/address/update',
+        'method': 'post',
         data
       })
 }
@@ -35,25 +27,27 @@ function  updateAddressApi(data){
 //删除地址
 function deleteAddressApi(params) {
     return $axios({
-        'url': '/address',
-        'method': 'delete',
+        'url': '/address/delete',
+        'method': 'get',
         params
     })
 }
 
 //查询单个地址
-function addressFindOneApi(id) {
+function selectByIdApi(params) {
   return $axios({
-    'url': `/address/${id}`,
-    'method': 'get',
+        'url': `/address/selectById`,
+        'method': 'get',
+         params
   })
 }
 
 //设置默认地址
-function  setDefaultAddressApi(id){
+function  setDefaultAddressApi(params){
   return $axios({
-      'url': '/address/Default?id='+id,
+      'url': '/address/Default',
       'method': 'get',
+      params
     })
 }
 
