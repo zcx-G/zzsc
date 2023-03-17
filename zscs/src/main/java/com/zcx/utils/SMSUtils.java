@@ -18,7 +18,7 @@ public class SMSUtils {
 	 * @param param 验证码
 	 */
 	public static void sendMessage(String phoneNumbers,String param){
-		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI5tPHBdB9b4BK7Dic1YN9", "ndRI3O1cTsYMCDLdtH9r1jEPp27t1W");
+		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "", "");
 		IAcsClient client = new DefaultAcsClient(profile);
 
 		SendSmsRequest request = new SendSmsRequest();
