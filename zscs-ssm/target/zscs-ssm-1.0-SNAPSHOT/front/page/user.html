@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no,minimal-ui">
+    <title>掌上商城</title>
+    <link rel="icon" href="./../images/logo.png">
+    <!--element-ui的样式-->
+    <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
+    <!-- 引入样式  -->
+    <link rel="stylesheet" href="../styles/index.css" />
+    <!--引入vant样式-->
+    <link rel="stylesheet" href="../styles/vant.min.css"/>
+    <!--本页面内容的样式-->
+    <link rel="stylesheet" href="./../styles/user.css" />
+</head>
+<body>
+    <div id="user" class="app">
+        <div class="divHead">
+            <div class="divTitle">
+                <i class="el-icon-arrow-left" @click="goBack"></i>个人中心
+            </div>
+            <div class="divUser">
+                <img src="./../images/user.png"/>
+                <div class="desc">
+                    <div class="divPhone">{{userPhone}} </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divContent">
+            <div class="divLinks">
+                <div class="item" @click="toAddressPage">
+                    <i class="el-icon-map-location"></i>
+                    <span>地址管理</span>
+                    <i class="el-icon-arrow-right" ></i>
+                </div>
+                <div class="divSplit"></div>
+                <div class="item" @click="toOrderPage">
+                    <i class="el-icon-tickets" ></i>
+                    <span>历史订单</span>
+                    <i class="el-icon-arrow-right" ></i>
+                </div>
+            </div>
+
+            <div class="quitLogin" @click="toPageLogin">
+                退出登录
+            </div>
+        </div>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="../../plugins/vue/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="../../plugins/element-ui/index.js"></script>
+    <!-- 引入vant组件 -->
+    <script src="./../js/vant.min.js"></script>    
+    <!--不同屏幕尺寸根字体设置-->
+    <script src="./../js/base.js"></script>
+    <!-- 引入axios -->
+    <script src="../../plugins/axios/axios.min.js"></script>
+    <script src="./../js/request.js"></script>
+    <script src="./../api/order.js"></script>
+    <script src="./../api/login.js"></script>
+    <script>
+        new Vue({
+            el:"#user",
+            data(){
+                return {
+                    form:{
+                        phone:'',
+                        code:''
+                    },
+                    msgFlag:false,
+                    order:[{
+                        orderTime:'',//下单时间
+                        status:undefined,//订单状态 1已结账，2未结账，3已退单，4已完成，5已取消
+                        orderDetails:[{
+                            name:'',//菜品名称
+                            number:undefined,//数量
+                        }],//明细
+                        amount:undefined,//实收金额
+                        sumNum:0,//菜品总数
+                    }],
+                }
+            },
+            computed:{},
+            created(){
+                this.userPhone =sessionStorage.getItem("userPhone")
+            },
+            mounted(){},
+            methods:{
+                goBack(){
+                    history.go(-1)
+                },
+                toAddressPage(){
+                    window.requestAnimationFrame(()=>{
+                        window.location.href = '/front/page/address.html'
+                    })  
+                },
+                toOrderPage(){
+                    window.requestAnimationFrame(()=>{
+                        window.location.href = '/front/page/order.html'
+                    }) 
+                },
+
+                async toPageLogin(){
+                    const res = await loginoutApi()
+                    if(res.code === 1){
+                        window.requestAnimationFrame(()=>{
+                            window.location.href = '/front/page/login.html'
+                        }) 
+                    }else{
+                        this.$notify({ type:'warning', message:res.msg});
+                    }                
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,root-scalable=no,minimal-ui">
+    <title>掌上超市</title>
+    <link rel="icon" href="images/logo.png">
+    <!--不同屏幕尺寸根字体设置-->
+    <script src="./js/base.js"></script>
+    <!--element-ui的样式-->
+    <link rel="stylesheet" href="../plugins/element-ui/index.css"/>
+    <!--引入vant样式-->
+    <link rel="stylesheet" href="styles/vant.min.css"/>
+    <!-- 引入样式  -->
+    <link rel="stylesheet" href="styles/index.css"/>
+    <!--本页面内容的样式-->
+    <link rel="stylesheet" href="styles/main.css"/>
+</head>
+<body>
+<div id="main" class="app">
+    <!--头像-->
+
+    <!--简介-->
+    <div class="divTitle">
+        <div class="divStatic">
+            <img src="./images/logo.png" class="logo"/>
+            <div class="divDesc">
+                <div class="divName">掌上超市</div>
+            </div>
+            <img src="./images/user.png" class="userImage" @click="toUserPage"/>
+        </div>
+        <div class="divDesc">
+            简介:
+        </div>
+    </div>
+    <!--主页面-->
+    <div class="divBody">
+        <!--分类栏-->
+        <div class="divType">
+            <ul>
+                <li v-for="(item,index) in categoryList" :key="index" @click="categoryClick(index,item.id)"
+                    :class="{active:activeType === index}">{{item.name}}
+                </li>
+            </ul>
+        </div>
+        <!--商品栏-->
+        <div class="divMenu">
+            <div>
+                <div class="divItem" v-for="(item,index) in goodList" :key="index" @click="goodDetails(item)">
+                    <el-image :src="imgPathConvert(item.image)">
+                        <div slot="error" class="image-slot">
+                            <img src="./images/noImg.png"/>
+                        </div>
+                    </el-image>
+                    <div>
+                        <div class="divName">{{item.name}}</div>
+                        <div class="divDesc">{{item.description}}</div>
+                        <div class="divDesc">月销&nbsp{{(item.saleNum>99 ? '99+':item.saleNum) }}</div>
+                        <div class="divBottom"><span>￥</span><span>{{item.price / 100}}</span></div>
+                        <div class="divNum">
+                            <div class="divSubtract" v-if="item.number > 0">
+                                <i class="el-icon-remove-outline"
+                                   style="color:#50afff ;font-size: 24rem;"
+                                   @click.prevent.stop="subCart(item)"> </i>
+                            </div>
+                            <div class="divGoodNum" style="line-height: 24rem">&nbsp;{{item.number}}</div>
+                            <div class="divAdd" >
+                                <i class="el-icon-circle-plus"
+                                   style="color:#50afff;font-size: 24rem;"
+                                   @click.prevent.stop="addCart(item)"> </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divLayer">
+        <div class="divLayerLeft"></div>
+        <div class="divLayerRight"></div>
+    </div>
+    <!--购物车导航栏-->
+    <div class="divCart" v-if="categoryList.length > 0">
+        <div :class="{imgCartActive: cartData && cartData.length > 0, imgCart:!cartData || cartData.length<1}"
+             @click="openCart"></div>
+        <div :class="{divGoodsNum:1===1, moreGoods:cartData && cartData.length > 99}"
+             v-if="cartData && cartData.length > 0">{{ goodsNum }}
+        </div>
+        <div class="divNum">
+            <span>￥</span>
+            <span>{{goodsPrice}}</span>
+        </div>
+        <div class="divPrice"></div>
+        <div :class="{btnSubmitActive: cartData && cartData.length > 0, btnSubmit:!cartData || cartData.length<1}"
+             @click="toAddOrderPage">去结算
+        </div>
+    </div>
+    <!--购物车详情-->
+    <van-popup v-model="cartDialogShow" position="bottom" :style="{ height: '50%' }" class="dialogCart">
+        <div class="divCartTitle">
+            <div class="title">购物车</div>
+            <div class="clear" @click="clearCart">
+                <i class="el-icon-delete"></i> 清空
+            </div>
+        </div>
+        <div class="divCartContent">
+            <div v-for="item in cartData" :key="item.id" class="divCartItem">
+                <el-image :src="imgPathConvert(item.image)">
+                    <div slot="error" class="image-slot">
+                        <img src="./images/noImg.png"/>
+                    </div>
+                </el-image>
+                <div class="divDesc">
+                    <div class="name">{{item.name}}</div>
+                    <div class="price">
+                        <span class="spanMoney">￥</span>{{item.amount}}
+                    </div>
+                </div>
+                <div class="divNum">
+                    <div class="divSubtract" v-if="item.number > 0">
+                        <i class="el-icon-remove-outline"
+                           style="color:#50afff ;font-size: 24rem;"
+                           @click="cartNumberSubtract(item)"> </i>
+                    </div>
+                    <div class="divGoodsNum" style="line-height: 28rem; width: 15rem">&nbsp;{{item.number}}</div>
+                    <div class="divAdd" >
+                        <i class="el-icon-circle-plus"
+                           style="color:#50afff;font-size: 24rem;"
+                           @click="cartNumAdd(item)"> </i>
+                    </div>
+                </div>
+                <div class="divSplit"></div>
+            </div>
+        </div>
+    </van-popup>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="../plugins/vue/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../plugins/element-ui/index.js"></script>
+<!-- 引入vant样式 -->
+<script src="./js/vant.min.js"></script>
+<!-- 引入axios -->
+<script src="../plugins/axios/axios.min.js"></script>
+<script src="./js/request.js"></script>
+<script src="./js/common.js"></script>
+<script src="./api/main.js"></script>
+</body>
+<script>
+    new Vue({
+        el: '#main',
+        data() {
+            return {
+                //左边商品类别index
+                activeType: 0,
+                categoryList: [],
+                categoryName: undefined,
+                goodList: [],
+                cartData: [],
+                cartDialogShow: false, //购物车开关
+                detailsDialog: {
+                    show: false,
+                    item: {image: ''}
+                },
+                setMealDialog: {
+                    show: false,
+                    item: {}
+                },
+            }
+        },
+        computed: {
+            goodsNum() {
+                let num = 0
+                this.cartData.forEach(item => {
+                    num += item.number
+                })
+                if (num < 99) {
+                    return num
+                } else {
+                    return '99+'
+                }
+            },
+            goodsPrice() {
+                let price = 0
+                this.cartData.forEach(item => {
+                    price += (item.number * item.amount)
+                })
+                return price
+            }
+        },
+        created() {
+        },
+        watch: {
+            'dialogFlavor.show'(flag) {
+                if (flag) {
+                    document.querySelector('.divCart').style.zIndex = 1
+                } else {
+                    document.querySelector('.divCart').style.zIndex = 3000
+                }
+            },
+        },
+        mounted() {
+            this.initData()
+        },
+        methods: {
+            //初始化数据
+            initData() {
+                Promise.all([categoryListApi(), cartListApi({})]).then(res => {
+                    //获取分类数据
+                    if (res[0].code === 1) {
+                        this.categoryList = res[0].data
+                        if (Array.isArray(res[0].data) && res[0].data.length > 0) {
+                            this.categoryId = res[0].data[0].id
+                            this.getGoodList()
+                        }
+                    } else {
+                        this.$notify({type: 'warning', message: res[0].msg});
+                    }
+                    //获取商品数据
+                    if (res[1].code === 1) {
+                        this.cartData = res[1].data
+                    } else {
+                        this.$notify({type: 'warning', message: res[1].msg});
+                    }
+                })
+            },
+            //分类点击
+            categoryClick(index, id) {
+                this.activeType = index
+                this.categoryId = id
+                this.getGoodList()
+            },
+            //获取商品数据
+            async getGoodList() {
+                if (!this.categoryId) {
+                    return
+                }
+                const res = await goodListApi({id:this.categoryId})
+                if (res.code === 1) {
+                    let goodList = res.data
+                    const cartData  = this.cartData
+                    if(goodList.length > 0 && cartData.length > 0){
+                        goodList.forEach(good=>{
+                            cartData.forEach(cart=>{
+                                if(good.id === cart.goodId){
+                                    good.number = cart.number
+                                }
+                            })
+                        })
+                    }
+                    this.goodList = goodList
+                } else {
+                    this.$notify({type: 'warning', message: res.msg});
+                }
+            },
+
+            //获取购物车数据
+            async getCartData() {
+                const res = await cartListApi({})
+                if (res.code === 1) {
+                    this.cartData = res.data
+                } else {
+                    this.$notify({type: 'warning', message: res.msg});
+                }
+            },
+            //商单中往购物车中添加商品
+            async addCart(item) {
+                let params = {
+                    amount: item.price / 100,//金额
+                    goodId: item.id,//商品id
+                    name: item.name,
+                    image: item.image
+                }
+
+                const res = await addCartApi(params)
+                if (res.code === 1) {
+                    this.getCartData()
+                    this.getGoodList()
+                } else {
+                    this.$notify({type: 'warning', message: res.msg});
+                }
+            },
+
+            //商单中减少选中的商品
+            async subCart(item) {
+                let params = {
+                    goodId: item.id//商品id
+                }
+                const res = await updateCartApi(params)
+                if (res.code === 1) {
+                    this.getCartData()
+                    this.getGoodList()
+                } else {
+                    this.$notify({type: 'warning', message: res.msg});
+                }
+            },
+
+            //展开购物车
+            openCart() {
+                if (this.cartData.length > 0) {
+                    this.cartDialogShow = true
+                }
+            },
+            //购物车中增加商品数量
+            async cartNumAdd(item) {
+                let params = {
+                    amount: item.amount,//金额
+                    goodId: item.goodId,//商品id
+                    name: item.name,
+                    image: item.image
+                }
+                const res = await addCartApi(params)
+                if (res.code === 1) {
+                    this.getCartData()
+                    this.getGoodList()
+                } else {
+                    this.$notify({type: 'warning', message: res.msg});
+                }
+            },
+            //购物车中减少商品数量
+            async cartNumberSubtract(item) {
+                let params = {
+                    goodId: item.goodId,//商品id
+                }
+                const res = await updateCartApi(params)
+                if (res.code === 1) {
+                    this.getCartData()
+                    this.getGoodList()
+                } else {
+                    this.$notify({type: 'warning', message: res.msg});
+                }
+            },
+
+
+            //清空购物车
+            async clearCart() {
+                const res = await clearCartApi()
+                if (res.code === 1) {
+                    for (let ele of this.goodList) {
+                        ele.number = undefined
+                    }
+                    this.cartData = []
+                    this.cartDialogShow = false
+                } else {
+                    this.$notify({type: 'warning', message: res.msg});
+                }
+            },
+
+            //网络图片路径转换
+            imgPathConvert(path) {
+                return imgPath(path)
+            },
+            //跳转到去结算界面
+            toAddOrderPage() {
+                if (this.cartData.length > 0) {
+                    window.requestAnimationFrame(() => {
+                        window.location.href = '/front/page/add-order.html'
+                    })
+                }
+            },
+            toUserPage() {
+                window.requestAnimationFrame(() => {
+                    window.location.href = '/front/page/user.html'
+                })
+            },
+            async goodDetails(item) {
+                //先清除对象数据，如果不行的话dialog使用v-if
+                this.detailsDialog.item = {}
+                this.setMealDialog.item = {}
+
+            }
+        }
+    })
+</script>
+</html>

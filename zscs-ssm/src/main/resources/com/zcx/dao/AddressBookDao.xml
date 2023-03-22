@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcx.dao.AddressBookDao">
+    <resultMap id="addressBookResultMap" type="addressBook">
+        <result column="update_time" property="updateTime"/>
+        <result column="is_default" property="isDefault"/>
+    </resultMap>
+</mapper>
